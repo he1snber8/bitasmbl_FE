@@ -15,7 +15,7 @@ import ProjectCheckout from "../components/Project/ProjectCreation/ProjectChecko
 import GithubRepoConnect from "../components/Project/ProjectCreation/GithubRepoConnect";
 import { GithubRepo } from "../interfaces/users/githubUserTypes";
 
-export default function CreatePostPage3() {
+export default function CreatePostPage() {
   const [step, setStep] = useState(0);
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [projectName, setProjectName] = useState<string>("");

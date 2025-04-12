@@ -1,23 +1,58 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import App from "./App";
+import "./index.css";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { configureStore } from "@reduxjs/toolkit";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleUserProvider } from "./context/GoogleUserContext";
+import { GoogleAuthProvider } from "./hooks/useGoogleOauth";
+import { GithubUserProvider } from "./context/GithubUserContext";
+import { usersApi } from "./api/UsersApi";
+import { projectsApi } from "./api/ProjectsApi";
+import { StandardUserProvider } from "./context/StandardUserContext";
+import { uploadApi } from "./api/ImageUploadApi";
+import { AuthProvider } from "./context/ProviderContext";
+import { githubAuthApi } from "./api/GithubAuthApi";
+import { GithubRepoProvider } from "./context/GithubReposContext";
 
-const container = document.getElementById('root')!;
+export const store = configureStore({
+  reducer: {
+    [usersApi.reducerPath]: usersApi.reducer,
+    [githubAuthApi.reducerPath]: githubAuthApi.reducer,
+    [uploadApi.reducerPath]: uploadApi.reducer,
+    [projectsApi.reducerPath]: projectsApi.reducer,
+  },
+  middleware: (getDefaultMiddleware: any) =>
+    getDefaultMiddleware()
+      .concat(uploadApi.middleware)
+      .concat(githubAuthApi.middleware)
+      .concat(usersApi.middleware)
+      .concat(projectsApi.middleware),
+});
+
+setupListeners(store.dispatch);
+
+const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <GoogleOAuthProvider clientId="481639826655-09j3toh6k4lhls4v0i29qvlc138pn996.apps.googleusercontent.com">
+      <AuthProvider>
+        <GithubRepoProvider>
+          <GithubUserProvider>
+            <GoogleUserProvider>
+              <GoogleAuthProvider>
+                <StandardUserProvider>
+                  <App />
+                </StandardUserProvider>
+              </GoogleAuthProvider>
+            </GoogleUserProvider>
+          </GithubUserProvider>
+        </GithubRepoProvider>
+      </AuthProvider>
+    </GoogleOAuthProvider>
+  </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

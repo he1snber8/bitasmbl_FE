@@ -1,58 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {
+  createBrowserRouter,
+  Link,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
+import PublicLayout from "./layouts/PublicLayout";
+import AuthenticatedLayout from "./layouts/AuthenticatedLayout";
+import MyUserProfilePage from "./pages/MyUserProfilePage";
+import HomePage from "./pages/HomePage";
+import PasswordResetForm from "./components/User/PasswordRecoveryAndReset/PasswordResetForm";
+import UserProjectsPage from "./pages/UserProjectsPage";
+
+import PublicUserProfilePage from "./pages/PublicUserProfilePage";
+
+import CreatePostPage3 from "./pages/CreatePostPage3";
+import PasswordRecoveryForm from "./components/User/PasswordRecoveryAndReset/PasswordRecoveryForm";
+import ManageProjectPage from "./components/Project/ManageProjectPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <PublicLayout />,
+  },
+  {
+    path: "/password-reset",
+    element: <PasswordResetForm />,
+  },
+  {
+    path: "/password-recovery",
+    element: <PasswordRecoveryForm />,
+  },
+  {
+    path: "/home",
+    element: <AuthenticatedLayout />,
+    children: [
+      { path: "", element: <HomePage /> },
+
+      {
+        path: "profile",
+        element: <MyUserProfilePage />,
+      },
+      {
+        path: "profile/:projectId/manage",
+        element: <ManageProjectPage />,
+      },
+      { path: "profile/projects", element: <UserProjectsPage /> },
+      { path: "profile/:userId", element: <PublicUserProfilePage /> },
+    ],
+  },
+  { path: "/home/projects/create", element: <CreatePostPage3 /> },
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
+  // return <Chat />;
 }
 
 export default App;

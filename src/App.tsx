@@ -13,7 +13,7 @@ import UserProjectsPage from "./pages/UserProjectsPage";
 
 import PublicUserProfilePage from "./pages/PublicUserProfilePage";
 
-import CreatePostPage3 from "./pages/CreatePostPage3";
+import CreatePostPage from "./pages/CreatePostPage";
 import PasswordRecoveryForm from "./components/User/PasswordRecoveryAndReset/PasswordRecoveryForm";
 import ManageProjectPage from "./components/Project/ManageProjectPage";
 
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       { path: "profile/:userId", element: <PublicUserProfilePage /> },
     ],
   },
-  { path: "/home/projects/create", element: <CreatePostPage3 /> },
+  { path: "/home/projects/create", element: <CreatePostPage /> },
 ]);
 
 function App() {

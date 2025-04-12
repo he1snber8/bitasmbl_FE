@@ -1,4 +1,72 @@
-# Getting Started with Create React App
+# 🎨 Bitasmbl Frontend
+
+This is the frontend of **Bitasmbl** — a platform that connects developers and creatives to build real-world projects together. Whether you're looking to gain hands-on experience or find collaborators for your product idea, Bitasmbl helps you assemble the right team.
+
+
+## 🌐 Live Project (Coming Soon)
+
+📍 [bitasmbl.com](https://bitasmbl.com) (in progress)
+
+## 🛠️ Tech Stack
+
+- **React 18 + Vite** — Modern, fast React setup
+- **TypeScript** — Type safety and better DX
+- **Tailwind CSS** — Utility-first styling
+- **Framer Motion** — Smooth animations & transitions
+- **Material Tailwind** — UI components and modal handling
+- **Redux Toolkit** — State management with API integration
+- **RTK Query** — Backend communication and caching
+- **React Router DOM** — Routing and page navigation
+- **Socket.io Client** — Real-time chat and notification system
+- **Axios (Deprecated)** — (Using RTK Query instead)
+
+---
+
+## 📦 Key Features
+
+- 🧑‍💼 OAuth Login (Google + GitHub)
+- 🧠 Smart Project Creation (categories, requirements, cover letter)
+- 📩 Application system for developers to apply to projects
+- 🔔 Real-time notifications (SignalR & Socket.io)
+- 💬 In-app chat for team communication
+- 🧭 Fully responsive layout with dynamic modals
+
+---
+
+## 🧪 Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/he1snber8/bitasmbl_FE.git
+
+# Move into the directory
+cd bitasmbl_FE
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+```
+
+---
+
+Make sure your backend and socket server are running on corresponding ports.
+
+---
+
+## 🤝 Contributing
+
+Pull requests and contributions are very welcome. Let’s grow Bitasmbl together!
+
+---
+
+## 📬 Contact
+
+Built and maintained by **@he1snber8**  
+📧 lukakhaja@yahoo.com
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 

@@ -71,33 +71,34 @@ export default function ProjectDetails({
   const [uploadProjectImages, { isLoading: imagesLoading }] =
     useUploadProjectImagesMutation();
 
-  const creationCost = projectRequirements.reduce(
-    (acc, pr) => acc + pr.maxApplicationLimit * (pr.isTestEnabled ? 2 : 1),
-    0
-  );
+  // const creationCost = projectRequirements.reduce(
+  //   (acc, pr) =>
+  //     acc + (pr.maxApplicationLimit ?? 1) * (pr.isTestEnabled ? 2 : 1),
+  //   0
+  // );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const projectPayload: CreateProjectModel = {
-      name: projectName.trim(),
-      description: projectDescription,
-      projectRequirements: projectRequirements.map(
-        ({ requirementId, name, maxApplicationLimit, isTestEnabled }) => ({
-          requirementId,
-          name,
-          maxApplicationLimit,
-          isTestEnabled,
-        })
-      ),
-      creationCost,
-      projectLinks,
-      categoryIds: projectCategories.map(({ id }) => id),
-    };
+    // const projectPayload: CreateProjectModel = {
+    //   name: projectName.trim(),
+    //   description: projectDescription,
+    //   projectRequirements: projectRequirements.map(
+    //     ({ requirementId, name, maxApplicationLimit, isTestEnabled }) => ({
+    //       requirementId,
+    //       name,
+    //       maxApplicationLimit,
+    //       isTestEnabled,
+    //     })
+    //   ),
+    //   creationCost,
+    //   projectLinks,
+    //   categoryIds: projectCategories.map(({ id }) => id),
+    // };
 
     try {
-      const { projectId } = await createProject(projectPayload).unwrap();
-      await uploadProjectImages({ projectId, files: projectFiles }).unwrap();
+      // const { projectId } = await createProject(projectPayload).unwrap();
+      // await uploadProjectImages({ projectId, files: projectFiles }).unwrap();
 
       setFailMessage(null); // Clear any previous errors
       setSuccessMessage("Project created successfully!");
@@ -187,7 +188,7 @@ export default function ProjectDetails({
                 className="border text-sm bg-[#18161b] border-purple-500 p-2 w-max"
                 key={index}
               >
-                {requirement.name} {requirement.maxApplicationLimit}
+                {/* {requirement.name} {requirement.maxApplicationLimit} */}
               </motion.div>
             ))}
           </motion.div>
@@ -243,7 +244,7 @@ export default function ProjectDetails({
               className="md:w-1/3 flex flex-col gap-4"
             >
               <motion.ul variants={itemVariants}>
-                {projectRequirements.map((pr) => {
+                {/* {projectRequirements.map((pr) => {
                   return (
                     <motion.li className="mt-4 text-sm" variants={itemVariants}>
                       {pr.name} ({" "}
@@ -269,7 +270,7 @@ export default function ProjectDetails({
                       )}
                     </motion.li>
                   );
-                })}
+                })} */}
               </motion.ul>
               <div className="bg-red-400 h-[1px]" />
               <h1 className="flex items-center gap-2 ">
@@ -286,7 +287,7 @@ export default function ProjectDetails({
               <motion.h1 variants={itemVariants}>
                 Total coints to be deducted:{" "}
                 <span className="text-red-400 content-center ">
-                  -{creationCost}{" "}
+                  {/* -{creationCost}{" "} */}
                 </span>
               </motion.h1>
             </motion.div>

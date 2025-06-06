@@ -32,7 +32,6 @@ const useGoogleAuthLogic = () => {
   const authorizeGoogle = useGoogleLogin({
     onSuccess: (res) => {
       setGoogleAuth(res as GoogleOAuthResponse);
-      navigate("/home");
     },
     onError: (error) => console.error("Registration Failed:", error),
   });

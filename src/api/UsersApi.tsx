@@ -19,9 +19,8 @@ import {
   GetGithubUserResponse,
   GithubRepo,
 } from "../interfaces/users/githubUserTypes";
-import { GithubCommit } from "../interfaces/github/commits";
+import { GithubCommit, GithubFileContent } from "../interfaces/github/commits";
 import { CreateTransaction } from "../interfaces/transaction";
-import { getEnvironmentData } from "worker_threads";
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
@@ -45,10 +44,32 @@ export const usersApi = createApi({
         method: "POST",
       }),
     }),
-    authorizeGithubUser: builder.mutation<GetGithubUserResponse, string>({
+    authorizeGithubUser: builder.mutation<
+      GetGithubUserResponse,
+      { code: string; isRegistration?: boolean }
+    >({
       invalidatesTags: ["User"],
-      query: (code) => `auth/github?code=${code}`,
+      query: ({ code, isRegistration }) =>
+        `auth/github?code=${code}&isRegistration=${isRegistration}`,
     }),
+
+    authorizeLinkedinUser: builder.mutation<
+      void,
+      { code: string; redirectUri: string }
+    >({
+      query: ({ code, redirectUri }) =>
+        `auth/linkedinyo?code=${code}&redirectUri=${redirectUri}`,
+      // invalidatesTags: ["User"],
+      // query: ({ code, redirectUri }) => ({
+      //   url: `auth/linkedin?code=${code}&redirectUri=${redirectUri}`,
+      //   method: "POST",
+      //   body: {}, // if you don't need anything in the body, send empty
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // }),
+    }),
+
     authorizeGoogleUser: builder.mutation<GoogleUserResponse, string>({
       invalidatesTags: ["User"],
       query: (accessToken) => `auth/google?accessToken=${accessToken}`,
@@ -116,6 +137,33 @@ export const usersApi = createApi({
         url: `github/repos?accessToken=${accessToken}&username=${username}`,
       }),
     }),
+    // getGithubRepoFiles: builder.query<
+    //   GithubFileContent[], // Assuming content is an array of strings
+    //   { accessToken: string; username: string; repoName: string }
+    // >({
+    //   query: ({ accessToken, username, repoName }) => ({
+    //     url: `github/repo/file/contents?accessToken=${accessToken}&username=${username}&repoName=${repoName}`,
+    //   }),
+    // }),
+    decodeGithubFileContent: builder.mutation<
+      GithubFileContent[], // ✅ Response type
+      {
+        accessToken: string;
+        username: string;
+        repoName: string;
+        // filenames: string[];
+      }
+    >({
+      query: ({ accessToken, username, repoName }) => ({
+        url: `github/repo/file/contents/decode?accessToken=${accessToken}&username=${username}&repoName=${repoName}`,
+        method: "POST",
+        // body: filenames, // ✅ Send as array of strings
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+
     getGithubUserCommits: builder.query<
       GithubCommit[],
       { accessToken: string; username: string; repo: string; branch: string }
@@ -142,9 +190,12 @@ export const {
   useGetUsersQuery,
   useGetPublicProfileQuery,
   useGetGithubReposQuery,
+  useDecodeGithubFileContentMutation,
+  // useGetGithubRepoFilesQuery,
   useGetGithubUserCommitsQuery,
   useAuthorizeGithubUserMutation,
   useAuthorizeGoogleUserMutation,
+  useAuthorizeLinkedinUserMutation,
   useFillUpUserBalanceMutation,
   useLogOutMutation,
   useUpdateUserMutation,

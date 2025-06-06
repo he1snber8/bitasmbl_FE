@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IoIosCheckmark } from "react-icons/io";
 import { IoExpandSharp } from "react-icons/io5";
 import ProjectClientDetailedView from "./Views/ProjectClientDetailedView";
-import { GetClientProjectModel } from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
+import { ClientProjectResponse } from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
 
 interface ProjectHeaderProps {
   projectName?: string;
@@ -13,7 +13,7 @@ interface ProjectHeaderProps {
   status?: string;
   githubRepo?: string;
   projectImages: ProjectImageModel[];
-  clientProject: GetClientProjectModel;
+  clientProject: ClientProjectResponse;
 }
 
 export default function ProjectHeader({
@@ -29,9 +29,9 @@ export default function ProjectHeader({
     useState<boolean>(false);
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col  justify-between">
       <div>
-        {projectImages.length > 0 && (
+        {/* {projectImages.length > 0 && (
           <>
             <div onClick={() => setProjectImagesOpened(true)} className="">
               <div className="cursor-pointer  border-ash mb-4 relative flex justify-center items-center overflow-hidden">
@@ -52,7 +52,7 @@ export default function ProjectHeader({
               </div>
             </div>
           </>
-        )}
+        )} */}
       </div>
       <div className="flex items-center  w-full gap-2 cursor-pointer">
         {creatorImageUrl ? (
@@ -69,11 +69,11 @@ export default function ProjectHeader({
           </div>
         )}
 
-        <div className="flex flex-col  grow ">
+        <div className="flex flex-col   grow ">
           <div className="flex  gap-2">
             <div>
-              <h1 className="text-xl">{projectName}</h1>
-              <h2 className="text-ash text-sm">by {projectCreator}</h2>
+              <h1 className="text-base text-ash">{projectName}</h1>
+              <h2 className="text-ash/50 text-sm">by {projectCreator}</h2>
             </div>
             {githubRepo && (
               <motion.div
@@ -111,9 +111,9 @@ export default function ProjectHeader({
       <AnimatePresence>
         {projectImagesOpened && (
           <ProjectClientDetailedView
-            isOpen={projectImagesOpened}
-            onClose={() => setProjectImagesOpened(false)}
-            clientProject={clientProject}
+          // isOpen={projectImagesOpened}
+          // onClose={() => setProjectImagesOpened(false)}
+          // clientProject={clientProject}
           />
         )}
       </AnimatePresence>

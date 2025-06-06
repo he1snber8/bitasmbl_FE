@@ -4,12 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  color: white;
-  font-family: "Mona Sans", sans-serif;
-  font-weight: 500;
+body {
+  @apply bg-black text-white;
 }
 
-body {
-  background-color: black;
+* {
+  font-family: "Mona Sans", sans-serif;
+}
+
+.react-joyride__tooltip {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.react-joyride__tooltip {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }

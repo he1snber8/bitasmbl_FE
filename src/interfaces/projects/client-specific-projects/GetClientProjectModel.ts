@@ -1,30 +1,46 @@
 import { Category } from "../../categoryTypes";
+import { GetClientProjectApplicationModel } from "../../PROJECTS2/getClientProjectModel";
 import { UserModel, UserProfile } from "../../userTypes";
 import { GetRequirement } from "../projectRequirementTypes";
-import { ProjectImageModel, ProjectLink } from "../projectTypes";
+import {
+  GetImplementationStep,
+  ProjectImageModel,
+  ProjectLink,
+  ProjectRequirement,
+  ProjectTechStack,
+} from "../projectTypes";
+// import { GetProjectApplicationModel } from "../user-specific-projects/GetUserProjectModel";
 
-export interface GetClientProjectModel {
+export interface ClientProjectResponse {
   id: number;
   name?: string;
-  description: string;
+  overview?: string;
   status?: string;
+  difficulty?: string;
   applications: number;
-  githubRepo?: string;
   dateCreated?: Date;
-  user: UserProfile; // Maps to GetUserModel in the backend
-  requirements: GetClientProjectRequirement[];
+  projectTechStacks: ProjectTechStack[];
+  implementationSteps: GetImplementationStep[];
+  requirements: GetRequirement[];
   projectLinks: ProjectLink[];
-  categories: Category[];
+  // categories: Category[];
   projectImages: ProjectImageModel[];
+  projectApplications: GetClientProjectApplicationModel[];
 }
-export interface GetAppliedProjectsModel {
+
+export interface ClientProjectsRequest {
+  page: number | 1;
+  pageSize: number | 8;
+}
+
+export interface AppliedProjectsResponse {
   applicationStatus?: string;
   dateApplied?: Date;
-  project: GetClientProjectModel;
+  project: ClientProjectResponse;
   coverLetter: string;
 }
 
-export interface GetClientProjectRequirement {
+export interface ClientProjectRequirementResponse {
   requirementId: number;
   requirement: GetRequirement;
   maxApplicationLimit: number;

@@ -12,9 +12,11 @@ import { useGithubRepo } from "../context/GithubReposContext";
 export default function GithubReposDropdown({
   setSelectedRepo,
   selectedRepo,
+  repos,
 }: // repos,
 // setSelectedRepo,
 {
+  repos: GithubRepo[] | null;
   selectedRepo: GithubRepo | null;
   setSelectedRepo: React.Dispatch<React.SetStateAction<GithubRepo | null>>;
 }) {
@@ -23,51 +25,49 @@ export default function GithubReposDropdown({
   const [repoSelected, setRepoSelected] = useState<boolean>(false);
   // const [repos, setRepos] = useState<GithubRepo[] | null>(null);
 
-  const { repos, setRepos } = useGithubRepo();
+  // const { repos, setRepos } = useGithubRepo();
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      setAccessToken(accessToken);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   if (accessToken) {
+  //     setAccessToken(accessToken);
+  //   }
+  // }, []);
 
-  const { data: fetchedRepos } = useGetGithubReposQuery({
-    accessToken: accessToken,
-    username: "he1snber8",
-  });
+  // const { data: fetchedRepos } = useGetGithubReposQuery({
+  //   accessToken: accessToken,
+  //   username: "he1snber8",
+  // });
 
-  const { data } = useGetGithubUserCommitsQuery({
-    accessToken: accessToken,
-    username: "he1snber8",
-    repo: selectedRepo?.name || "",
-    branch: "",
-  });
+  // const { data } = useGetGithubUserCommitsQuery({
+  //   accessToken: accessToken,
+  //   username: "he1snber8",
+  //   repo: selectedRepo?.name || "",
+  //   branch: "",
+  // });
 
-  console.log(selectedRepo?.name);
+  // console.log(selectedRepo?.name);
 
-  useEffect(() => {
-    if (fetchedRepos) {
-      setRepos(fetchedRepos);
-    }
-  }, [fetchedRepos]);
+  // useEffect(() => {
+  //   if (fetchedRepos) {
+  //     setRepos(fetchedRepos);
+  //   }
+  // }, [fetchedRepos]);
 
   return (
     <motion.div
       onClick={() => setRepoSelected((prev) => !prev)}
-      className={` md:w-1/2 relative bg-[#18161b]  h-12 flex items-center border  border-concrete  cursor-pointer`}
+      className={`min-w-52  px-6  relative bg-[#18161b]   border-dashe  h-12 flex items-center   border-concrete  cursor-pointer`}
     >
       <div className="mx-auto flex items-center">
         <h3 className="text-sm">
-          {selectedRepo
-            ? `${selectedRepo.name} selected`
-            : "Connect with Github"}{" "}
+          {selectedRepo ? `${selectedRepo.name} selected` : "Submit repo"}{" "}
         </h3>
 
         <AnimatePresence>
           {repoSelected && (
             <motion.ul
-              className="bg-coal  absolute left-0 top-full w-full  border border-concrete  z-50"
+              className=" bg-[#18161b] absolute  left-0 top-full w-full   overflow-y-auto   border-concrete  z-50"
               initial={{ opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ opacity: 0, y: 10 }}

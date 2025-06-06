@@ -57,7 +57,7 @@ export default function PayPalButton({ amount }: { amount: number }) {
 
                   alert(`Transaction completed by ${profile.userName}`);
 
-                  await updateUser({ balance: amount });
+                  // await updateUser({ balance: amount });
                   await fillUpUserBalance(createTransactionCommand).unwrap();
                 } else {
                   alert(

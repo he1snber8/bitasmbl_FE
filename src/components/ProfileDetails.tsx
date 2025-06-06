@@ -10,11 +10,7 @@ import { PiInstagramLogo, PiInstagramLogoDuotone } from "react-icons/pi";
 import { GrGoogle } from "react-icons/gr";
 import checkmarkAnimation from "./animations/check-mark-white.json";
 import Lottie from "lottie-react";
-import { UserProfile } from "../interfaces/userTypes";
-
-export interface SocialLink {
-  socialUrl: string;
-}
+import { SocialLink, UserProfile } from "../interfaces/userTypes";
 
 export default function ProfileDetails({
   onClose,
@@ -44,9 +40,18 @@ export default function ProfileDetails({
   };
 
   const [socialUrls, setSocialUrls] = useState<SocialLink[]>([
-    { socialUrl: user?.userSocials?.[0]?.socialUrl || "" },
-    { socialUrl: user?.userSocials?.[1]?.socialUrl || "" },
-    { socialUrl: user?.userSocials?.[2]?.socialUrl || "" },
+    {
+      urlValue: user?.userSocials?.[0]?.urlValue || "",
+      platform: user?.userSocials?.[0]?.platform || "",
+    },
+    {
+      urlValue: user?.userSocials?.[1]?.urlValue || "",
+      platform: user?.userSocials?.[0]?.platform || "",
+    },
+    {
+      urlValue: user?.userSocials?.[2]?.urlValue || "",
+      platform: user?.userSocials?.[0]?.platform || "",
+    },
   ]); //3 urls
 
   const handleSocialUrlChange = (index: number, value: string) => {
@@ -98,18 +103,18 @@ export default function ProfileDetails({
                 type="text"
                 placeholder="Link to your social account"
                 className="w-full"
-                value={url.socialUrl}
+                value={url.urlValue}
                 onChange={(e) => handleSocialUrlChange(index, e.target.value)}
               />
             </div>
             <div>
-              {url.socialUrl.includes("slack") ? (
+              {url.platform.includes("slack") ? (
                 <FaSlack fill="#cac6bf" size={18} />
-              ) : url.socialUrl.includes("google") ? (
+              ) : url.platform.includes("google") ? (
                 <GrGoogle size={18} />
-              ) : url.socialUrl.includes("insta") ? (
+              ) : url.platform.includes("insta") ? (
                 <PiInstagramLogoDuotone size={18} />
-              ) : url.socialUrl.includes("linkedin") ? (
+              ) : url.platform.includes("linkedin") ? (
                 <motion.div
                   onHoverStart={() => setIconHovered(true)}
                   onHoverEnd={() => setIconHovered(false)}

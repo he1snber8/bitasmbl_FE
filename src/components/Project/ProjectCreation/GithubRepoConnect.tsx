@@ -26,10 +26,10 @@ export default function GithubRepoConnect({
           you can connect existing git repository to your project!
         </h3>
       </div>
-      <GithubReposDropdown
+      {/* <GithubReposDropdown
         setSelectedRepo={setSelectedRepo}
         selectedRepo={selectedRepo}
-      />
+      /> */}
       <div className="flex justify-end gap-4">
         <h1 className="p-4 cursor-pointer" onClick={() => handleBack()}>
           Back

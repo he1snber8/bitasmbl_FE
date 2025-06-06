@@ -1,6 +1,7 @@
 const withMT = require("@material-tailwind/react/utils/withMT");
 
 module.exports = withMT({
+  darkMode: "class", //
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -14,7 +15,7 @@ module.exports = withMT({
         raisin: "#37006C",
         plum: "#2A0053",
         grape: "#5800EF",
-        coal: "#18161B",
+        coal: "#040D12",
         ash: "#cac6bf",
         concrete: "#565653",
         cream: "#FFFDEE",

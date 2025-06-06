@@ -23,3 +23,10 @@ export interface ParentCommit {
   sha: string;
   url: string;
 }
+
+export interface GithubFileContent {
+  name: string;
+  path: string;
+  content: string;
+  download_url: string;
+}

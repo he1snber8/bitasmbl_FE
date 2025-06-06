@@ -20,8 +20,12 @@ export default function NameInput({
             </h1>
             <h3 className="text-sm text-ash">A unique name for your project</h3>
           </div>
+
           <motion.div
-            whileHover={{ borderColor: "#9c27b0" }}
+            style={{ borderColor: "#4f46e5" }}
+            whileHover={{
+              boxShadow: "0 0 20px #4f46e5",
+            }}
             className="bg-[#18161b] rounded-md border border-concrete h-1/2 my-auto p-2  text-sm md:text-base"
           >
             <motion.input

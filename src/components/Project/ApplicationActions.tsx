@@ -1,4 +1,5 @@
-import { GetProjectApplicationModel } from "@/src/interfaces/projects/user-specific-projects/GetUserProjectModel";
+// import { GetProjectApplicationModel } from "@/src/interfaces/projects/user-specific-projects/GetUserProjectModel";
+import { GetClientProjectApplicationModel } from "@/src/interfaces/PROJECTS2/getClientProjectModel";
 import { AnimatePresence, motion } from "framer-motion";
 
 const ApplicationActionsDropdown = ({
@@ -12,7 +13,7 @@ const ApplicationActionsDropdown = ({
   onClose: (value: React.SetStateAction<boolean>) => void;
   onApprove: (id: number) => Promise<void>;
   onReject: (id: number) => Promise<void>;
-  projectApplication: GetProjectApplicationModel;
+  projectApplication: GetClientProjectApplicationModel;
 }) => {
   if (!isOpen) return null;
 

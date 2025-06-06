@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NameInput from "../components/Project/ProjectCreation/NameInput";
 import { motion } from "framer-motion";
 import DescriptionArea from "../components/Project/ProjectCreation/DescriptionArea";
@@ -14,6 +14,10 @@ import ProjectImagesUpload from "../components/Project/ProjectCreation/ProjectIm
 import ProjectCheckout from "../components/Project/ProjectCreation/ProjectCheckout";
 import GithubRepoConnect from "../components/Project/ProjectCreation/GithubRepoConnect";
 import { GithubRepo } from "../interfaces/users/githubUserTypes";
+import RequirementsSelection2 from "../components/Project/ProjectCreation/RequirementsSelection2";
+
+import { useGetProjectRequirementsQuery } from "../api/ProjectsApi";
+import AIChatInterface from "../components/AiChatInterface";
 
 export default function CreatePostPage() {
   const [step, setStep] = useState(0);
@@ -21,14 +25,10 @@ export default function CreatePostPage() {
   const [projectName, setProjectName] = useState<string>("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedRepo, setSelectedRepo] = useState<GithubRepo | null>(null);
+  // const [recommendedSkills, setRecommendedSkills] = useState<string[]>([""]);
 
-  const {
-    addRequirement,
-    setSelectedRequirements,
-    selectedRequirements,
-    handleDecrement,
-    handleIncrement,
-  } = useAlterRequirements();
+  const { addRequirement, setSelectedRequirements, selectedRequirements } =
+    useAlterRequirements();
 
   const { selectedCategories, addCategory } = useAlterCategories();
 
@@ -44,6 +44,10 @@ export default function CreatePostPage() {
   const handleBack = () => {
     setStep((prev) => prev - 1);
   };
+
+  useEffect(() => {
+    console.log(selectedRequirements);
+  }, [selectedRequirements]);
 
   const inputs = [
     <NameInput
@@ -65,6 +69,13 @@ export default function CreatePostPage() {
       handleBack={handleBack}
       handleNext={handleNext}
     />,
+    // <AIChatInterface
+    //   handleBack={handleBack}
+    //   handleNext={handleNext}
+    //   additionalPrompt={projectDescription}
+    //   setRecommendedSkills={setSelectedRequirements}
+    //   // projectRequirements={requirements}
+    // />,
     <ProjectImagesUpload
       uploadedFiles={uploadedFiles}
       setUploadedFiles={setUploadedFiles}
@@ -92,8 +103,6 @@ export default function CreatePostPage() {
       key="SelectedRequirements"
       handleBack={handleBack}
       handleNext={handleNext}
-      handleDecrement={handleDecrement}
-      handleIncrement={handleIncrement}
     />,
     <UsefulLinks
       linkInputs={linkInputs}
@@ -125,7 +134,7 @@ export default function CreatePostPage() {
       } flex items-center justify-center h-full`}
     >
       <motion.div
-        className="flex relative w-5/6 md:w-4/6 flex-col gap-6 max-h-screen justify-between "
+        className="flex relativ w-5/6 md:w-3/5 flex-col gap-6 max-h-screen justify-between "
         key={step} // ✅ Use index for key since it's an array
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -137,3 +146,9 @@ export default function CreatePostPage() {
     // </div>
   );
 }
+
+// import React from "react";
+
+// export default function CreatePostPage() {
+//   return <div></div>;
+// }

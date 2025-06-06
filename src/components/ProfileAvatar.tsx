@@ -17,7 +17,7 @@ export default function ProfileAvatar({
     <Tooltip content={tooltipContent} placement="bottom">
       <div
         onClick={onClick}
-        className={`${className} my-auto cursor-pointer rounded-full flex bg-grape/50`}
+        className={`${className} my-auto cursor-pointer rounded-full flex bg-grape`}
       >
         <p className="items-center size-max m-auto text-purple-100">
           {userName.charAt(0).toUpperCase() ?? ""}

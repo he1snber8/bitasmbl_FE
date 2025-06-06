@@ -11,17 +11,15 @@ export default function SearchBar({ className, width, hoverBgColor }: any) {
   return (
     <>
       <motion.div
-        // whileHover={{ width }}
-        // transition={{ duration: 0.3, ease: "easeInOut" }}
         onHoverStart={() => setDivHovered(true)}
         onHoverEnd={() => setDivHovered(false)}
-        className={`flex items-center  
-        hover:hoverBgColor  ${className} text-white border border-concrete font-thin p-1 `}
+        className={`flex bg-[#191919]/90 items-center rounded-xl border-ash/20
+        hover:hoverBgColor  ${className} text-white border font-thin  `}
       >
         {/* <TfiSearch /> */}
         <input
-          className={`bg-transparent outline-none   ${
-            divHovered && "placeholder:text-cream  text-cream"
+          className={`bg-transparent w-full outline-none placeholder:font-medium  ${
+            divHovered && "placeholder:text-cream   text-cream"
           }  `}
           type="text"
           placeholder="Search..."

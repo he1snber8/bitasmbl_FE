@@ -16,6 +16,14 @@ import PublicUserProfilePage from "./pages/PublicUserProfilePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import PasswordRecoveryForm from "./components/User/PasswordRecoveryAndReset/PasswordRecoveryForm";
 import ManageProjectPage from "./components/Project/ManageProjectPage";
+import LeaderBoardPage from "./components/LEADERBOARD";
+import PROJECTS from "./components/PROJECTS";
+import HOMEPAGE2 from "./pages/HOMEPAGE2";
+import CollaborationPage from "./components/CollaborationPage";
+import UserCustomProjectsPage from "./components/UserOwnedProjectsPage";
+import MYUSERPROFILEPAGE2 from "./pages/MYUSERPROFILEPAGE2";
+import UserOnboardingProcess from "./pages/UserOnboardingProcess";
+import { LinkedInCallback } from "react-linkedin-login-oauth2";
 
 const router = createBrowserRouter([
   {
@@ -34,21 +42,26 @@ const router = createBrowserRouter([
     path: "/home",
     element: <AuthenticatedLayout />,
     children: [
-      { path: "", element: <HomePage /> },
+      // { path: "", element: <HomePage /> },
+      { path: "projects", element: <HOMEPAGE2 /> },
+      { path: "leaderboard", element: <LeaderBoardPage /> },
+      { path: "collab", element: <CollaborationPage /> },
+      { path: "userprojects", element: <UserCustomProjectsPage /> },
 
       {
         path: "profile",
-        element: <MyUserProfilePage />,
+        element: <MYUSERPROFILEPAGE2 />,
       },
-      {
-        path: "profile/:projectId/manage",
-        element: <ManageProjectPage />,
-      },
-      { path: "profile/projects", element: <UserProjectsPage /> },
-      { path: "profile/:userId", element: <PublicUserProfilePage /> },
+      // {
+      //   path: "profile/:projectId/manage",
+      //   element: <ManageProjectPage />,
+      // },
+      // { path: "profile/projects", element: <UserProjectsPage /> },
+      // { path: "profile/:userId", element: <PublicUserProfilePage /> },
     ],
   },
   { path: "/home/projects/create", element: <CreatePostPage /> },
+  { path: "/onboarding", element: <UserOnboardingProcess /> },
 ]);
 
 function App() {

@@ -1,14 +1,13 @@
 import { Category } from "@/src/interfaces/categoryTypes";
-import {
-  GetAppliedProjectsModel,
-  GetClientProjectModel,
-} from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
+
 import {
   ApplyToProjectRequest,
   ApplyToProjectResponse,
   CreateProjectModel,
   CreateProjectResponse,
+  GetProjectSubmissionModel,
   GetRequirement,
+  SubmitProjectRequest,
   UpdateProjectRequest,
 } from "@/src/interfaces/projects/projectTypes";
 import {
@@ -18,6 +17,12 @@ import {
 } from "@/src/interfaces/projects/user-specific-projects/GetUserProjectModel";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GetProjectRequirementTest } from "../interfaces/projects/projectRequirementTypes";
+import {
+  AppliedProjectsResponse,
+  ClientProjectResponse,
+  ClientProjectsRequest,
+} from "../interfaces/projects/client-specific-projects/GetClientProjectModel";
+import { GetClientProjectModel } from "../interfaces/PROJECTS2/getClientProjectModel";
 
 export const projectsApi = createApi({
   reducerPath: "projectsApi",
@@ -35,10 +40,22 @@ export const projectsApi = createApi({
     "Application",
     "UserProjects",
   ],
+
   endpoints: (builder) => ({
-    getProjects: builder.query<GetClientProjectModel[], void>({
+    getProjects: builder.query<
+      ClientProjectResponse[] | null,
+      ClientProjectsRequest
+    >({
       providesTags: ["Projects"],
-      query: () => "",
+      query: ({ page, pageSize }) => `?page=${page}&pageSize=${pageSize}`,
+    }),
+
+    getPublicProjectApplications: builder.query<
+      GetClientProjectModel[] | null,
+      void
+    >({
+      providesTags: ["Projects"],
+      query: () => `public/applications`,
     }),
 
     getUserProject: builder.query<GetUserProjectModel, number>({
@@ -93,7 +110,7 @@ export const projectsApi = createApi({
     getProjectRequirements: builder.query<GetRequirement[], void>({
       query: () => "/requirements",
     }),
-    getAppliedProjects: builder.query<GetAppliedProjectsModel[], void>({
+    getAppliedProjects: builder.query<AppliedProjectsResponse[], void>({
       query: () => "/applied",
     }),
 
@@ -115,6 +132,30 @@ export const projectsApi = createApi({
         body: projectApplicationCommand,
       }),
       invalidatesTags: ["Projects"],
+    }),
+
+    submitProject: builder.mutation<void, SubmitProjectRequest>({
+      query: (projectSubmissionCommand) => ({
+        url: "/submit",
+        method: "POST",
+        body: projectSubmissionCommand,
+      }),
+      invalidatesTags: ["Projects"],
+    }),
+    getUserProjectSubmissions: builder.query<
+      GetProjectSubmissionModel[],
+      number
+    >({
+      query: (projectApplicationId) =>
+        `profile/submissions?projectApplicationId=${projectApplicationId}`,
+      providesTags: (result, error) => {
+        return result
+          ? result.map((submission) => ({
+              type: "Application",
+              id: `SUBMISSION_${submission.projectApplicationId}`,
+            }))
+          : [];
+      },
     }),
 
     updateProject: builder.mutation<GetUserProjectModel, UpdateProjectRequest>({
@@ -169,11 +210,14 @@ export const {
   useGetUserProjectApplicationsQuery,
   useRejectApplicationMutation,
   useGetUserProjectQuery,
+  useGetPublicProjectApplicationsQuery,
+  useGetUserProjectSubmissionsQuery,
   useGetAppliedProjectsQuery,
   useGetProjectRequirementTestQuery,
   useCreateProjectMutation,
   useUpdateProjectMutation,
   useApplyToProjectMutation,
+  useSubmitProjectMutation,
   useUploadProjectImagesMutation,
   useGetProjectsQuery,
   useGetProjectCategoriesQuery,

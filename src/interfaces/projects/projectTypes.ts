@@ -1,3 +1,8 @@
+import {
+  GetImplementationStepTerminalInstructionModel as GetImplementationStepTerminalInstruction,
+  GetTerminalInstruction,
+} from "../PROJECTS2/getClientProjectModel";
+
 export interface CreateProjectModel {
   name: string;
   description: string;
@@ -14,11 +19,21 @@ export interface CreateProjectResponse {
   error?: string;
 }
 
+// export interface ProjectRequirement {
+//   name: string;
+//   requirementId?: number;
+//   maxApplicationLimit: number;
+//   isTestEnabled?: boolean | false;
+// }
+
 export interface ProjectRequirement {
-  name: string;
-  requirementId?: number;
-  maxApplicationLimit: number;
-  isTestEnabled?: boolean | false;
+  id: number;
+  description: string;
+  codeExample?: string;
+  hint?: string;
+  isOptional: boolean;
+
+  projectId: number;
 }
 
 export interface ProjectLink {
@@ -28,20 +43,56 @@ export interface ProjectLink {
 
 export interface GetRequirement {
   id: number;
-  name: string;
+  description: string;
+  codeExample: string;
+  hint: string;
+  isOptional: boolean;
 }
 
 export interface ApplyToProjectRequest {
-  coverLetter?: string;
-  projectId: number;
-  requirementIds: number[];
-  correctAnswers: number; // Number of correct answers
-  totalQuestions: number;
-  selectedAndAppliedRequirements: string[];
+  // coverLetter?: string;
+  projectId?: number;
+  projectApplicationId?: number;
+  collaboratorId?: string;
+  techStackRequirementIds: number[];
+}
+
+export interface SubmitProjectRequest {
+  projectApplicationId: number;
+  answer: string;
+  reason: string;
+  recommendation: string;
+  isValid?: boolean;
+}
+
+export interface GetProjectSubmissionModel {
+  projectApplicationId: number;
+  answer: string;
+  reason: string;
+  recommendation: string;
+  isValid?: boolean;
 }
 
 export interface ApplyToProjectResponse {
   message?: string;
+}
+
+export interface ProjectTechStack {
+  project: string;
+  techStack: TechStack;
+}
+
+export interface TechStack {
+  id: number;
+  name: string;
+}
+
+export interface GetImplementationStep {
+  header: string;
+  implementationStep: string;
+  implementationStepTerminalInstructions?:
+    | GetImplementationStepTerminalInstruction[]
+    | [];
 }
 
 export interface ProjectImageModel {

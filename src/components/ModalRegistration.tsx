@@ -38,9 +38,24 @@ export default function ModalRegistration({
   const { loading, loginStandard, registerStandard } = useStandardAuthLogic();
 
   const { userData: githubUser, setGithubUserData } = useGithubUserContext();
+
   const { authorizeGoogle } = useGoogleAuthLogic();
 
-  const handleAlreadyRegisteredClick = () => {
+  const handleRegistration = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    userName: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      await registerStandard(e, userName, email, password);
+      handleSignInPopUp();
+    } catch (error) {
+      window.alert("Registration failed. Please try again.");
+    }
+  };
+
+  const handleSignInPopUp = () => {
     onClose(true);
     window.setTimeout(() => {
       alreadyRegisteredClicked && alreadyRegisteredClicked(true);
@@ -160,7 +175,7 @@ export default function ModalRegistration({
               onClick={(e) => {
                 e.preventDefault();
                 isRegistration
-                  ? registerStandard(e, userName, email, password)
+                  ? handleRegistration(e, userName, email, password)
                   : loginStandard(e, email, password);
               }}
               className="my-4 bg-gradient-to-r  from-raisin to-purple-700  flex justify-center items-center rounded-none font-saira"
@@ -174,8 +189,8 @@ export default function ModalRegistration({
             <h2 className="my-4 text-xs md:text-sm font-outfit font-normal text-white">
               {" Already have an account?  "}
               <span
-                onClick={() => handleAlreadyRegisteredClick()}
-                className="underline cursor-pointer"
+                onClick={() => handleSignInPopUp()}
+                className="underline cursor-pointer underline-offset-4 decoration-2 decoration-gray-500 hover:decoration-deep-purple-400"
               >
                 Sign in
               </span>

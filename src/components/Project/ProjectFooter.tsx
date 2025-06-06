@@ -1,4 +1,3 @@
-import { GetClientProjectModel } from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
 import { ProjectLink } from "@/src/interfaces/projects/projectTypes";
 import React from "react";
 import { IoIosLink } from "react-icons/io";
@@ -19,7 +18,7 @@ export default function ProjectFooter({
   return (
     <div className="justify-between mt-2">
       <div className="grow flex flex-col gap-2">
-        <div className="flex items-center text-sm md:flex-row md:items-center gap-2">
+        {/* <div className="flex items-center text-sm md:flex-row md:items-center gap-2">
           Status:
           <span
             className={`px-2 py-1 text-sm  ${
@@ -60,7 +59,7 @@ export default function ProjectFooter({
         </div>
         <p className="text-xs text-ash">
           Created: {new Date(dateCreated).toLocaleDateString()}
-        </p>
+        </p> */}
         {/* <div className="flex items-center justify-between">
         <h2>
           Created On:{" "}

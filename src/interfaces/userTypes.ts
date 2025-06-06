@@ -1,7 +1,18 @@
-import { SocialLink } from "../components/ProfileDetails";
-import { GetUserProjectModel } from "./projects/user-specific-projects/GetUserProjectModel";
+import {
+  GetProjectApplicationModel,
+  GetUserProjectModel,
+} from "./projects/user-specific-projects/GetUserProjectModel";
+import {
+  UserApplicationMembershipModel,
+  GetClientProjectApplicationModel,
+} from "./PROJECTS2/getClientProjectModel";
 import { GithubUser } from "./users/githubUserTypes";
 import { StandardUser } from "./users/standardUserTypes";
+
+export interface SocialLink {
+  platform: string;
+  urlValue: string;
+}
 
 export interface User {
   id: string;
@@ -14,7 +25,8 @@ export interface User {
 export interface UserProfile extends User {
   dateJoined: Date;
   lastLogin: Date;
-  projects: GetUserProjectModel[];
+  xp: number;
+  applicationMemberships: UserApplicationMembershipModel[];
   skills: string[];
   userSocials?: SocialLink[];
   balance: number;
@@ -37,9 +49,11 @@ export interface UserUpdateModel {
   username?: string;
   imageUrl?: string;
   bio?: string;
+
   password?: string;
   userSocials?: SocialLink[];
-  balance?: number;
+  skills?: string[];
+  // balance?: number;
 }
 
 export interface RegisterUserModel {

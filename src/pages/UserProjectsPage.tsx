@@ -124,14 +124,14 @@ export default function UserProjectsPage() {
 
       {/* Render the modal only when a project is selected */}
       <AnimatePresence>
-        {selectedProject && (
+        {/* {selectedProject && (
           <ModalApplicationsView
             isOpen={!!selectedProject}
             onClose={() => setSelectedProject(null)}
             // projectApplications={selectedProject.projectApplications}
             project={selectedProject}
           />
-        )}
+        )} */}
       </AnimatePresence>
     </>
   );

@@ -43,7 +43,8 @@ export function Drawer() {
     await logOut({}); // Call API logout if needed
     localStorage.removeItem("googleUser"); // Clear storage
     localStorage.removeItem("repos"); // Clear storage
-    sessionStorage.clear();
+    localStorage.removeItem("accessToken"); // Clear storage
+    // sessionStorage.clear();
     setGoogleUserData(null); // Reset state
     setProvider(null);
 
@@ -77,11 +78,11 @@ export function Drawer() {
           onClick={openDrawer}
           src={profile.imageUrl}
           alt="User Avatar"
-          className="size-10 my-auto mr-3 cursor-pointer rounded-full"
+          className="size-10 my-auto  cursor-pointer rounded-full"
         />
       ) : (
         <ProfileAvatar
-          className="size-10 mr-3"
+          className="size-10 "
           onClick={openDrawer}
           userName={profile?.userName}
         />
@@ -90,7 +91,7 @@ export function Drawer() {
       <DrawerDefault
         open={open}
         onClose={closeDrawer}
-        className="p-4 bg-transparent border-y-[1px] border-l-[1px] overflow-y-hidden  border-concrete"
+        className="p-4  border-y-[1px] border-l-[1px]  bg-[#191919]/90 items-center rounded-xl border-ash/20  "
         placement="right"
       >
         <div className="mb-6  flex justify-between">
@@ -110,7 +111,9 @@ export function Drawer() {
               />
             )}
 
-            <h2>{profile?.userName ?? googleUser?.email}</h2>
+            <h2 className="text-xs">
+              {profile?.userName ?? googleUser?.email}
+            </h2>
 
             {/* <h2>Hei5enber8</h2> */}
           </div>

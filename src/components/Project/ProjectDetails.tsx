@@ -1,10 +1,10 @@
-import { GetClientProjectModel } from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
+import { ClientProjectResponse } from "@/src/interfaces/projects/client-specific-projects/GetClientProjectModel";
 import React from "react";
 
 export default function ProjectDetails({
   dateCreated,
   status,
-}: GetClientProjectModel) {
+}: ClientProjectResponse) {
   return (
     <div className="mt-4 flex flex-col gap-2">
       <p className="text-sm text-gray-500">

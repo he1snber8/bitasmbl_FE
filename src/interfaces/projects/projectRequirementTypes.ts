@@ -1,6 +1,8 @@
 export interface GetRequirement {
   id?: number; // Matches backend Requirement.Id
-  name: string; // Matches backend Requirement.Name
+  description: string; // Matches backend Requirement.Name
+  codeExample: string;
+  hint: string;
 }
 
 export interface ProjectRequirement {

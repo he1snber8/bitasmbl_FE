@@ -1,6 +1,8 @@
 import MediaUploadSection2 from "src/sections/MediaUploadSection2";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import FileUpload from "../../FileUpload";
+// import FileUpload from "../FileUpload";
 
 export default function ProjectImagesUpload({
   handleBack,
@@ -14,12 +16,16 @@ export default function ProjectImagesUpload({
   uploadedFiles: File[];
 }) {
   return (
-    <div className="flex  gap-6">
-      <div className="flex flex-col  gap-2">
+    <div className="flex gap-6">
+      <div className="flex flex-col flex-wrap w-1/2 max-w-2xl  gap-2  mx-auto">
         <div className="mt-6">
-          <MediaUploadSection2
+          {/* <MediaUploadSection2
             uploadedFiles={uploadedFiles}
             handleFileChange={setUploadedFiles}
+          /> */}
+          <FileUpload
+            uploadedFiles={uploadedFiles}
+            setUploadedFiles={setUploadedFiles}
           />
         </div>
         <div className="flex justify-end gap-4  w-full">

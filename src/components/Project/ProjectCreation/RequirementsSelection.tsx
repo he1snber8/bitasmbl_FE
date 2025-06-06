@@ -1,24 +1,37 @@
 import { useGetProjectRequirementsQuery } from "src/api/ProjectsApi";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAlterRequirements } from "src/hooks/useAlterRequirements";
 import { ProjectRequirement } from "@/src/interfaces/projects/projectTypes";
+import { useEffect } from "react";
 
 export default function RequirementsSelection({
   handleNext,
   handleBack,
   selectedRequirements,
+  // recommendedSkills,
   addRequirement,
 }: {
   handleNext: () => void;
   handleBack: () => void;
   selectedRequirements: ProjectRequirement[];
+  // recommendedSkills: string[];
   addRequirement: (requirement: ProjectRequirement) => void;
 }) {
   const { data: requirements } = useGetProjectRequirementsQuery();
 
+  console.log(requirements);
+
+  useEffect(() => {
+    // This ensures React knows to rerender when requirements update
+    console.log(
+      "Updated selectedRequirements in RequirementsSelection:",
+      selectedRequirements
+    );
+  }, [selectedRequirements]);
+
   return (
     <div className="flex flex-col gap-6 ">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col mt-8 gap-2">
         <h1 className="text-xl flex items-center gap-4">
           Requirements <span className="text-concrete text-sm">required</span>
         </h1>
@@ -30,28 +43,35 @@ export default function RequirementsSelection({
       <div className="flex gap-2  flex-wrap border-concrete">
         {requirements?.map((requirement, index) => (
           <motion.div
+            // onClick={() =>
+            //   addRequirement({
+            //     requirementId: requirement.id,
+            //     name: requirement.name,
+            //     maxApplicationLimit: 1,
+            //   })
+            // }
+            // whileHover={{
+            //   backgroundColor: "rgb(126, 24, 145, 1)",
+            //   color: "white",
+            // }}
             whileTap={{ scale: 1.1 }}
-            onClick={() =>
-              addRequirement({
-                requirementId: requirement.id,
-                name: requirement.name,
-                maxApplicationLimit: 1,
-              })
-            }
-            whileHover={{
-              backgroundColor: "rgb(126, 24, 145, 1)",
-              color: "white",
+            className={`content-center p-1 text-sm  md:text-base rounded-none md:p-2 cursor-pointer  shadow-md border  `}
+            // ${
+            //   selectedRequirements.some((req) => req.name === requirement.name)
+            //     ? "bg-[#4f46e5]/60"
+            //     : "bg-transparent border-concrete text-ash"
+            // }
+            style={{
+              borderColor: "#4f46e5",
+              width: "calc(max-content + 50%)",
             }}
-            className={`content-center p-1 text-sm  md:text-base rounded-none md:p-2 cursor-pointer  shadow-md border  ${
-              selectedRequirements.some(
-                (req) => req.requirementId === requirement.id
-              )
-                ? "bg-[#2D0740]  border-[#9c27b0]"
-                : "bg-transparent border-concrete text-ash"
-            }`}
+            whileHover={{
+              boxShadow: "0 0 20px #4f46e5",
+              transition: { duration: 6 },
+            }}
             key={index}
           >
-            {requirement.name}
+            {/* {requirement.name} */}
           </motion.div>
         ))}
       </div>
